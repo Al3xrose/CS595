@@ -72,6 +72,18 @@ victimUrl = sys.argv[1]
 if "http://" not in victimUrl:
     victimUrl = "http://" + victimUrl 
 
+'''
+test url for errors
+'''
+try:
+    testRequest = requests.get(victimUrl)
+    if testRequest.status_code != 200 or "Web for Pentester II" not in testRequest.text:
+        print("invalid WFP2 url provided!")
+        sys.exit(1)
+except requests.ConnectionError as e:
+    print("invalid WFP2 url provided!")
+    sys.exit(1)
+
 password = ""
 found = False
 
